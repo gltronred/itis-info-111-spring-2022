@@ -1,3 +1,5 @@
+import java.io.*;
+import java.util.*;
 
 class NegativeExponentException
     extends Exception {
@@ -30,6 +32,9 @@ public class L1 {
                 i++;
             } catch (NegativeExponentException e) {
                 System.out.println("Try again");
+                System.out.println(e);
+            } catch (Exception e) {
+                System.out.println("Try again: Runtime exception");
                 System.out.println(e);
             }
         }

@@ -6,6 +6,10 @@ import java.util.*;
 // throw e
 // ResultType methodName(...) throws SomeExceptionType
 // try { ... } catch(...) {...}
+//
+// RuntimeException
+// try { ... } catch(...) {...} finally {...}
+// try-with-resources ---> когда будут файлы
 
 class EngineException extends Exception {}
 
@@ -52,10 +56,13 @@ class Car {
         int speed = engine.get() / 100;
         System.out.println("Moving car with speed " + speed);
     }
+    void stop() {
+        System.out.println("Stopping car");
+    }
 }
 
 public class L0 {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Car car = new Car(new Engine());
         for (int i=0; i<30; i++) {
             try {
@@ -65,9 +72,12 @@ public class L0 {
                 System.out.println(e);
                 for (int j=0; j<e.getHeight(); j++)
                     System.out.println("- Clean snow");
+                throw new Exception("Epic fail");
             } catch (EngineException e) {
                 System.out.println(e);
                 System.out.println("Repair engine");
+            } finally {
+                car.stop();
             }
         }
     }
