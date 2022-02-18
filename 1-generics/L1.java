@@ -33,7 +33,7 @@ public class L1 {
         Integer[] a = {1,2,3,4,5,4,3,2,1};
 
         // Поиск среднего, минимума и максимума
-        Pair<Double,Pair<Integer,Integer>> ans = new Pair<>(0.0, new Pair<>(1000,-1001));
+        Pair<Double,Pair<Integer,Integer>> ans = new Pair<>(0.0, new Pair<>(1001,-1001));
         for (Integer x : a) {
             if (x > ans.getSecond()) {
                 ans.setSecond(x);
