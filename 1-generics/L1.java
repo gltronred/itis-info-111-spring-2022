@@ -35,8 +35,11 @@ public class L1 {
         // Поиск среднего, минимума и максимума
         Pair<Double,Pair<Integer,Integer>> ans = new Pair<>(0.0, new Pair<>(1001,-1001));
         for (Integer x : a) {
-            if (x > ans.getSecond()) {
-                ans.setSecond(x);
+            if (x < ans.getSecond().getFirst()) {
+                ans.getSecond().setFirst(x);
+            }
+            if (x > ans.getSecond().getSecond()) {
+                ans.getSecond().setSecond(x);
             }
             ans.setFirst(ans.getFirst() + x);
         }
@@ -44,6 +47,7 @@ public class L1 {
 
         // Выводим ответы
         System.out.println(ans.getFirst());
-        System.out.println(ans.getSecond());
+        System.out.println(ans.getSecond().getFirst());
+        System.out.println(ans.getSecond().getSecond());
     }
 }
