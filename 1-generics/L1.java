@@ -11,20 +11,20 @@ import java.util.*;
 // у пользователя
 
 // Класс для пары значений
-class Pair {
-    private Object first;
-    private Object second;
+class Pair<U,V> {
+    private U first;
+    private V second;
 
-    public Pair(Object first, Object second) {
+    public Pair(U first, V second) {
         this.first = first;
         this.second = second;
     }
 
-    public Object getFirst() { return first; }
-    public Object getSecond() { return second; }
+    public U getFirst()  { return first; }
+    public V getSecond() { return second; }
 
-    public void setFirst(Object first) { this.first = first; }
-    public void setSecond(Object second) { this.second = second; }
+    public void setFirst(U first)   { this.first = first; }
+    public void setSecond(V second) { this.second = second; }
 }
 
 public class L1 {
@@ -32,15 +32,15 @@ public class L1 {
         // Входной массив
         Integer[] a = {1,2,3,4,5,4,3,2,1};
 
-        // Поиск среднего и максимума
-        Pair ans = new Pair(new Double(0.0), new Integer(-1001));
+        // Поиск среднего, минимума и максимума
+        Pair<Double,Pair<Integer,Integer>> ans = new Pair<>(0.0, new Pair<>(1000,-1001));
         for (Integer x : a) {
-            if (x > (Integer)ans.getSecond()) {
+            if (x > ans.getSecond()) {
                 ans.setSecond(x);
             }
-            ans.setFirst((Double)ans.getFirst() + x);
+            ans.setFirst(ans.getFirst() + x);
         }
-        ans.setFirst((Double)ans.getFirst() / a.length);
+        ans.setFirst(ans.getFirst() / a.length);
 
         // Выводим ответы
         System.out.println(ans.getFirst());
