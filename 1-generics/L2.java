@@ -1,8 +1,16 @@
 
 class Coll<E> {
-    void add(E e) {}
-    void addAll(Coll<? extends E> otherColl) {}
-    void removeIf(Pred<? super E> predicate) {}
+    // private E[] es;
+
+    public void add(E e) {}
+    public void addAll(Coll<? extends E> otherColl) {}
+    public void removeIf(Pred<? super E> predicate) {
+        // for (int i=0; i<es.length; i++) {
+        //     if (predicate.test(es[i])) {
+        //         // remove es[i]
+        //     }
+        // }
+    }
 }
 
 interface Pred<E> {
