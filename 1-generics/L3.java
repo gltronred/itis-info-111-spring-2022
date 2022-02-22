@@ -71,5 +71,15 @@
 
 public class L3 {
     public static void main(String[] args) {
+        Func<Integer,Integer> m3 = new Mult(3);
+        Func<Integer,Integer> d2 = new Div(2);
+        Func<Integer,Integer> s1 = new Sub(1);
+
+        System.out.println(m3.apply(4)); // 12
+        System.out.println(d2.apply(6)); // 3
+        System.out.println(s1.apply(8)); // 7
+
+        System.out.println(m3.compose(d2).apply(2)); // 3
+        System.out.println(m3.andThen(s1).apply(3)); // 10
     }
 }
