@@ -80,6 +80,6 @@ public class L3 {
         System.out.println(s1.apply(8)); // 7
 
         System.out.println(m3.compose(d2).apply(2)); // 3
-        System.out.println(m3.andThen(s1).apply(3)); // 10
+        System.out.println(m3.andThen(s1).apply(3)); // 8
     }
 }
