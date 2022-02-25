@@ -170,5 +170,17 @@ public class L3 {
 
         System.out.println(new Str().andThen(new Len()).andThen(s1).apply(3.01)); // 3
         System.out.println(s1.compose(new Len()).compose(new Str()).apply(3.2)); // 2
+
+        Option<Double> o1 = Option.empty();
+        Option<Double> o2 = new Option<>(3.0);
+
+        System.out.println(o1.isPresent());
+        System.out.println(o1.isEmpty());
+
+        System.out.println(o1.orElse(9000.0));
+        System.out.println(o2.orElse(9000.0));
+
+        System.out.println(o1.map(new Str()).orElse("no value"));
+        System.out.println(o2.map(new Str()).orElse("no value"));
     }
 }
