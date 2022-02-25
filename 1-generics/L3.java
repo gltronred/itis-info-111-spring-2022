@@ -31,11 +31,47 @@
 // после текущей (которая принимает R и
 // возвращает V) и возвращает композицию
 // текущей функции с after
-//
+interface Func<T,R> {
+        R apply(T t);
+        Func<T,T> identity();
+        <V> Func<V,R> compose(Func<? super V,? extends T> before);
+        <V> Func<T,V> andThen(Func<? super R,? extends V> after);
+}
+
 // Напишите абстрактный класс DefaultFunc<T,R>,
 // в котором будут реализации методов
 // identity, compose и andThen
-//
+
+abstract class DefaultFunc<T,R> implements Func<T,R> {
+        public abstract R apply(T t);
+        public Func<T,T> identity() {
+                return new IdentityFunc<T>();
+        }
+        public <V> Func<V,R> compose(Func<? super V,? extends T> before){
+                return new ComposeFunc<>(before, this);
+        }
+        public <V> Func<T,V> andThen(Func<? super R,? extends V> after){
+                return new ComposeFunc<>(this, after);
+        }
+}
+
+class IdentityFunc<T> extends DefaultFunc<T,T> {
+        public T apply(T t) { return t; }
+}
+
+class ComposeFunc<V,T,R> extends DefaultFunc<V,R> {
+        private Func<? super V,? extends T> before;
+        private Func<? super T,? extends R> after;
+        public ComposeFunc(Func<? super V,? extends T> before, Func<? super T,? extends R> after) {
+                this.before = before;
+                this.after = after;
+        }
+        public R apply(V v) {
+                T t = before.apply(v);
+                return after.apply(t);
+        }
+}
+
 // Реализации для Func<Integer,Integer>:
 // - Mult, которая умножает входное число на
 //   заданное в конструкторе
@@ -44,6 +80,31 @@
 // - Div, которая делит входное число на
 //   заданное в конструкторе
 
+class Mult extends DefaultFunc<Integer,Integer> {
+        private int k;
+        public Mult(int k) { this.k = k; }
+        public Integer apply(Integer x) { return k*x; }
+}
+
+class Sub extends DefaultFunc<Integer,Integer> {
+        private int k;
+        public Sub(int k) { this.k = k; }
+        public Integer apply(Integer x) { return x-k; }
+}
+
+class Div extends DefaultFunc<Integer,Integer> {
+        private int k;
+        public Div(int k) { this.k = k; }
+        public Integer apply(Integer x) { return x/k; }
+}
+
+class Str extends DefaultFunc<Double, String> {
+        public String apply(Double x) { return x.toString(); }
+}
+
+class Len extends DefaultFunc<String, Integer> {
+        public Integer apply(String s) { return s.length(); }
+}
 
 //////////////////////////////////////////////////
 // Класс Option, в котором хранится либо
@@ -81,5 +142,8 @@ public class L3 {
 
         System.out.println(m3.compose(d2).apply(2)); // 3
         System.out.println(m3.andThen(s1).apply(3)); // 8
+
+        System.out.println(new Str().andThen(new Len()).andThen(s1).apply(3.01)); // 3
+        System.out.println(s1.compose(new Len()).compose(new Str()).apply(3.2)); // 2
     }
 }
