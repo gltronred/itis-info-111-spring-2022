@@ -124,11 +124,36 @@ class Len extends DefaultFunc<String, Integer> {
 // есть, или other, если значение "пустое"
 //
 // Метод
-// Option<U> map(??? mapper),
+// Option<U> map(Func<? super T,? extends U> mapper),
 // который принимает Func mapper, и
 // применяет его к значению, если оно не
 // пустое (или возвращает пустое значение,
 // если хранится пустое значение)
+class Option<T> {
+        private T contents;
+        public static <U> Option<U> empty() {
+                return new Option<>(null);
+        }
+        public Option(T t) {
+                this.contents = t;
+        }
+        public boolean isPresent() { return contents != null; }
+        public boolean isEmpty() { return contents == null; }
+        public T orElse(T other) {
+                if (isEmpty()) {
+                        return other;
+                } else {
+                        return contents;
+                }
+        }
+        public <U> Option<U> map(Func<? super T,? extends U> mapper) {
+                if (isEmpty()) {
+                        return empty();
+                } else {
+                        return new Option<>(mapper.apply(contents));
+                }
+        }
+}
 
 public class L3 {
     public static void main(String[] args) {
