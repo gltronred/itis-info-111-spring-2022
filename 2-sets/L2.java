@@ -9,10 +9,10 @@ public class L2 {
         do {
             x = sc.nextInt();
             // был ли x введён ранее?
-            if (olds.contains(x)) {
+            boolean wasAdded = olds.add(x);
+            if (!wasAdded) {
                 System.out.println("Was earlier: " + x);
             }
-            olds.add(x);
         } while (x != 0);
     }
 }
