@@ -6,8 +6,8 @@ public class L4 {
     static void task2(List<Integer> list) {
         list.stream()
             .filter(x -> x % 2 == 0)
-            .map(x -> {return x / 2;})
-            .map(x -> {return x + 3;})
+            .map(x -> x / 2)
+            .map(x -> x + 3)
             .forEach(n -> {
                     for (int i=0; i<n; i++) {
                         System.out.print("a");
