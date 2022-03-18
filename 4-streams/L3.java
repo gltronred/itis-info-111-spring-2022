@@ -5,27 +5,15 @@ import java.util.stream.*;
 public class L3 {
     static void task2(List<Integer> list) {
         list.stream()
-            .filter((Integer x) -> {
-                        return x % 2 == 0;
-                    })
-            .map(new Function<Integer,Integer>() {
-                    public Integer apply(Integer x) {
-                        return x / 2;
-                    }
-                })
-            .map(new Function<Integer,Integer>() {
-                    public Integer apply(Integer x) {
-                        return x + 3;
-                    }
-                })
-            .forEach(new Consumer<Integer>() {
-                    public void accept(Integer n) {
+            .filter((Integer x) -> {return x % 2 == 0;})
+            .map((Integer x) -> {return x / 2;})
+            .map((Integer x) -> {return x + 3;})
+            .forEach((Integer n) -> {
                         for (int i=0; i<n; i++) {
                             System.out.print("a");
                         }
                         System.out.println();
-                    }
-                });
+                    });
     }
     public static void main(String[] args){
         List<Integer> l = new LinkedList<>();
