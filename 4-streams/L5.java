@@ -18,7 +18,7 @@ class Transaction {
     public String getFrom() { return from; }
     public String getTo() { return to; }
     public int getAmount() { return amount; }
-    public int getCurrency() { return currency; }
+    public String getCurrency() { return currency; }
 }
 
 public class L2 {
