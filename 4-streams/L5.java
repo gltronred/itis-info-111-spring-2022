@@ -22,16 +22,21 @@ class Transaction {
 }
 
 public class L2 {
+    // Использовать java.util.stream.* существенным образом
+    //
     // 1. Получить сумму всех транзакций в USD
     public static int task1(List<Transaction> txns) {
         return 0;
     }
-    // 2. Получить всех получателей транзакций
+    // 2. Вернуть всех получателей транзакций
     public static Set<String> task2(List<Transaction> txns) {
         return null;
     }
     // 3. Считая, что вначале баланс у всех равен 0, подсчитать,
     // какой будет баланс после прохождения всех транзакций
+    //                аккаунт     валюта   сумма
+    //                   |          |        |
+    //                   v          v        v
     public static Map<String, Map<String, Integer>> task3(List<Transaction> txns) {
         return null;
     }
