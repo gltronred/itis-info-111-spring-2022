@@ -4,6 +4,8 @@ class WrongMove extends Exception {}
 class MoveOutOfBounds extends WrongMove {}
 // Ход на занятое поле
 class FieldIsOccupied extends WrongMove {}
+// Неправильное поле
+class WrongField extends Exception {}
 
 // Крестик и нолик
 enum Value {
@@ -15,7 +17,10 @@ enum Value {
 public class Game {
     // конструктор задаёт размеры поля и
     // длину для выигрыша
-    public Game(int size, int winLength) {}
+    // выбрасывает исключение, если размер
+    // поля меньше выигрышной длины
+    public Game(int size, int winLength)
+        throws WrongField {}
     // геттеры для размера поля и
     // длины выигрышной линии
     public int getFieldSize() { return -1; }
