@@ -52,10 +52,10 @@ public class L3 {
             .split("\\.");
         return components[components.length-1];
     }
-    public static Path makeTarget(Path targetDir, Path p) {
+    public static Path makeTarget(Path sourceDir, Path targetDir, Path p) {
         return targetDir
             .resolve(getFileExt(p))
-            .resolve(p.getFileName());
+            .resolve(p.subpath(sourceDir.getNameCount(), p.getNameCount()));
     }
     public static void task(Path sourceDir, Path targetDir) throws IOException {
         System.out.println("Copy by types from " +
@@ -64,13 +64,16 @@ public class L3 {
         Files.walk(sourceDir)
             .filter(Files::isRegularFile)
             .forEach(source -> {
-                    Path target = makeTarget(targetDir, source);
+                    Path target = makeTarget(sourceDir, targetDir, source);
+                    System.out.println(source + " -> " + target);
                     try {
                         Files.createDirectories(target.getParent());
                         if (Files.exists(target)) {
                             System.out.println("File " + target + " is overwritten");
                         }
-                        Files.copy(source, target, StandardCopyOption.REPLACE_EXISTING);
+                        Files.copy(source, target,
+                                   StandardCopyOption.REPLACE_EXISTING,
+                                   StandardCopyOption.COPY_ATTRIBUTES);
                     } catch (IOException e) {
                         System.out.println(e);
                     }
