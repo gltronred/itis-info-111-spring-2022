@@ -1,4 +1,6 @@
+import java.io.*;
 import java.nio.file.*;
+import java.util.*;
 
 /*
  * Рекурсивно пройтись по всем файлам в sourceDir,
@@ -44,12 +46,37 @@ import java.nio.file.*;
  * быть написано в консоль
  */
 public class L3 {
-    public static void task(Path sourceDir, Path targetDir) {
+    public static String getFileExt(Path path) {
+        String[] components = path.getFileName()
+            .toString()
+            .split("\\.");
+        return components[components.length-1];
+    }
+    public static Path makeTarget(Path targetDir, Path p) {
+        return targetDir
+            .resolve(getFileExt(p))
+            .resolve(p.getFileName());
+    }
+    public static void task(Path sourceDir, Path targetDir) throws IOException {
         System.out.println("Copy by types from " +
                            sourceDir + " to " +
                            targetDir);
+        Files.walk(sourceDir)
+            .filter(Files::isRegularFile)
+            .forEach(source -> {
+                    Path target = makeTarget(targetDir, source);
+                    try {
+                        Files.createDirectories(target.getParent());
+                        if (Files.exists(target)) {
+                            System.out.println("File " + target + " is overwritten");
+                        }
+                        Files.copy(source, target, StandardCopyOption.REPLACE_EXISTING);
+                    } catch (IOException e) {
+                        System.out.println(e);
+                    }
+                });
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         if (args.length != 2) {
             System.out.println("Usage: java L3 <source> <target>");
             return;
