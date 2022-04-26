@@ -26,6 +26,15 @@ class Datum {
     public Datum parse(String[] array) {
         return null;
     }
+    public String toString() {
+        return company + " " +
+            model + " " +
+            buildYear + " " +
+            color + " @ " +
+            buyDay + "." +
+            buyMonth + "." +
+            buyYear;
+    }
 }
 
 public class Cars {
@@ -42,6 +51,12 @@ public class Cars {
             .map(s -> s.split("\t"))
             .filter(arr -> arr[3].equals("Черный"))
             .count();
+    }
+    public static void task3(Path input) throws IOException {
+        Files.lines(input)
+            .map(s -> s.split(" *\t *"))
+            .map(Datum::parse)
+            .forEach(System.out::println);
     }
     public static void main(String[] args) throws IOException {
         task1(Path.of("data.txt"));
