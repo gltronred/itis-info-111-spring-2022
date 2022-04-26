@@ -2,6 +2,32 @@ import java.io.*;
 import java.nio.file.*;
 import java.util.*;
 
+class Datum {
+    private String company;
+    private String model;
+    private int buildYear;
+    private String color;
+    private String city;
+    private int buyYear;
+    private int buyMonth;
+    private int buyDay;
+    private int sum;
+
+    public String getCompany() { return company; }
+    public String getModel() { return model; }
+    public int getBuildYear() { return buildYear; }
+    public String getColor() { return color; }
+    public String getCity() { return city; }
+    public int getBuyYear() { return buyYear; }
+    public int getBuyMonth() { return buyMonth; }
+    public int getBuyDay() { return buyDay; }
+    public int getSum() { return sum; }
+
+    public Datum parse(String[] array) {
+        return null;
+    }
+}
+
 public class Cars {
     public static void task1(Path input) throws IOException {
         Files.lines(input)
